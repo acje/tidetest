@@ -1,5 +1,7 @@
-fn main() -> Result<(), std::io::Error> {
-    let mut app = tide::App::new();
+#[async_std::main]
+async fn main() -> Result<(), std::io::Error> {
+    let mut app = tide::new();
     app.at("/").get(|_| async move { "Hello, world!" });
-    Ok(app.serve("0.0.0.0:8000")?)
+    app.listen("0.0.0.0:8000").await?;
+    Ok(())
 }
